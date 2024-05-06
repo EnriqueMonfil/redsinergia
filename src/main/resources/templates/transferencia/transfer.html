@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title>RedSinergiaApp | Aplicación para obtener información de mis transacciones.</title>
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link th:href="@{/bootstrap/css/jumbotron.css}" rel="stylesheet">
+    <link th:href="@{/bootstrap/css/sticky-footer-navbar.css}" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <header th:insert="fragments/menu :: menu-principal">
+     
+    </header>
+
+    <main role="main">
+
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">
+						<h2>Create New Transfer</h2>
+						<form id="miFormulario"  th:action="@{/api/newTransfer}" method="post" th:object="${transacciones}">
+							<div class="form-group">
+								<label for="000000000">Select origin account</label> <select
+									class="form-control" id="cuentaOrigen" name="cuentaOrigen">
+									<option th:each="opcion : ${transaccionesPorCuenta}"
+										th:value="${opcion.key.numeroCuentaOrigen}"
+										th:text="${opcion.key.numeroCuentaOrigen}"></option>
+								</select>
+
+							</div>
+							<div class="form-group">
+								<label for="exampleInputDestinationAccount">Destination account</label> <input
+									type="text" class="form-control" id="cuentaDestino" name="cuentaDestino"
+									placeholder="DestinationAccount">
+							</div>
+							
+							<div class="form-group">
+								<label for="exampleInputAmount">Amount</label> <input
+									type="text" class="form-control" id="cantidad" name="cantidad"
+									placeholder="0000">
+							</div>
+	
+							<button type="submit" class="btn btn-primary">Submit</button>
+							<button type="button" class="btn btn-danger" onclick="limpiarFormulario()">Cancel</button>
+						</form>
+					</th>
+					<th scope="col"><img class="rounded mx-auto d-block"
+						th:src="@{/images/grap.png}" alt="Generic placeholder image"
+						width="320" height="200"></th>
+				</tr>
+			</thead>
+			<tbody>
+
+			</tbody>
+		</table>
+
+
+		<hr>
+
+		<div th:each="entry : ${transaccionesPorCuenta}">
+			<h2>
+				Cuenta: <span th:text="${entry.key.numeroCuentaOrigen}"></span>
+			</h2>
+			<table class="table table-bordered" style="margin: 0 auto; display: table;">
+				<thead>
+					<tr>
+						<th>Origin Account</th>
+						<th>Destination Account</th>
+						<th>Transfer Date</th>
+						<th>Amount</th>
+						
+						<!-- Agrega más columnas según sea necesario -->
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="transaccion : ${entry.value}">
+						<td th:text="${transaccion.cuentaOrigen}"></td>
+						<td th:text="${transaccion.cuentaDestino}"></td>
+						<td th:text="${transaccion.fecha}"></td>
+						<td th:text="${transaccion.cantidad}"></td>
+						<!-- Agrega más celdas según sea necesario -->
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<!-- /container -->
+
+	</main>
+
+    <footer class="footer" th:insert="fragments/footer :: pie-pagina">
+      
+    </footer>
+<script>
+    function limpiarFormulario() {
+        document.getElementById("miFormulario").reset();
+    }
+</script>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+  </body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title>RedSinergiaApp | Aplicación para obtener información de mis transacciones.</title>
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link th:href="@{/bootstrap/css/jumbotron.css}" rel="stylesheet">
+    <link th:href="@{/bootstrap/css/sticky-footer-navbar.css}" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <header th:insert="fragments/menu :: menu-principal">
+     
+    </header>
+
+    <main role="main">
+
+      <!-- Main jumbotron for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <div class="container">
+        <h3 th:if="${session.usuario != null}" class="text-light; color: black" th:text="'Welcome to your online banking ' + ${session.usuario.nombre}"></h3>&nbsp;
+      
+
+        </div>
+      </div>
+      <hr>
+
+		<div class="container">
+
+
+
+			<table class="table table-bordered" style="margin: 0 auto; display: table;">
+				<thead>
+
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+						<img th:src="'data:image/png;base64,' + ${imagen}" alt="Gráfico de Pastel"/>
+						<h8>simply filler text from printers and text files. Lorem Ipsum has been the industry's standard dummy text 
+						ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a textbook 
+						specimen. Not only did it survive 500 years..</h8>
+						</td>
+						<td>
+            			<img class="rounded mx-auto d-block" th:src="@{/images/RSGLOGO.png}" alt="Generic placeholder image" width="320" height="200">            
+						<h1>Main Expenses</h1>
+						<h8>simply filler text from printers and text files. Lorem Ipsum has been the industry's standard dummy text 
+						ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a textbook 
+						specimen. Not only did it survive 500 years, but it also entered as filler text in electronic documents, 
+						remaining essentially the same as the original. It was popularized in the 1960s with the creation of Letraset 
+						sheets, which contained Lorem Ipsum passages, and more recently with desktop publishing software such as Aldus 
+						PageMaker, which includes versions of Lorem Ipsum.</h8>
+						</td>
+						<td>
+							<h3>Current Balance</h3>
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th scope="col">Account N.</th>
+										<th scope="col">Balance</th>
+										<th scope="col">Date of Latest Transfer</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="balance :  ${listaBalance}">
+										<th th:text="${balance.cuentaOrigen}" scope="row"></th>
+										<th th:text="${balance.monto}" scope="row"></th>
+										<th th:text="${balance.fecha}" scope="row"></th>
+									</tr>
+
+								</tbody>
+							</table>
+						</td>
+					</tr>
+
+
+				</tbody>
+			</table>
+
+		</div>
+		<!-- /container -->
+
+	</main>
+
+    <footer class="footer" th:insert="fragments/footer :: pie-pagina">
+      
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+  </body>
+</html>
